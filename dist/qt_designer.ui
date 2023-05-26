@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainWindow</class>
+ <widget class="QMainWindow" name="mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1646</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Verdana</family>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Sıralama Algoritmaları Görselleştirici</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="MplWidget" name="MplWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>130</y>
+      <width>761</width>
+      <height>431</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_Random">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>590</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 20px;
+	background-color: rgb( 50, 150, 255);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb(85, 170, 255);
+}</string>
+    </property>
+    <property name="text">
+     <string>Oluştur</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_dur">
+    <property name="geometry">
+     <rect>
+      <x>1070</x>
+      <y>590</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 20px;
+	background-color: rgb( 230, 70, 20);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb( 255, 80, 50);
+}</string>
+    </property>
+    <property name="text">
+     <string>Dur</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>1320</x>
+      <y>326</y>
+      <width>209</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Zaman Karmaşıklığı:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_zamankar">
+    <property name="geometry">
+     <rect>
+      <x>1500</x>
+      <y>330</y>
+      <width>401</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>1320</x>
+      <y>286</y>
+      <width>209</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Karşılaştırma Sayısı:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_karsilastirma">
+    <property name="geometry">
+     <rect>
+      <x>1500</x>
+      <y>290</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>20</y>
+      <width>641</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>24</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Sıralama Algoritmaları</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>60</y>
+      <width>641</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>24</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Görselleştiricisi</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_sifirla">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>590</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 20px;
+	background-color: rgb( 230, 120, 40);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb( 255, 120, 40);
+}</string>
+    </property>
+    <property name="text">
+     <string>Sıfırla</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>165</y>
+      <width>241</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Kullanıcı Liste Giriş Tercihi:</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioBtn_manuel">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>170</y>
+      <width>111</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Manuel Giriş</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioBtn_oto">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>170</y>
+      <width>141</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Otomatik Giriş</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_grafik">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>380</y>
+      <width>201</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Sütun (Bar) Grafiği</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Dağılım (Scatter) Grafiği</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Kök (Stem) Grafiği</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>360</y>
+      <width>101</width>
+      <height>56</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Grafik Tipi:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBars">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>260</y>
+      <width>61</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Boyut:</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spnBars">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>270</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="minimum">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <number>250</number>
+    </property>
+    <property name="value">
+     <number>10</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>200</y>
+      <width>41</width>
+      <height>49</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Liste:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblAnim">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>300</y>
+      <width>30</width>
+      <height>62</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Hız:</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="sldAnim_speed">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>330</y>
+      <width>201</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="singleStep">
+     <number>10</number>
+    </property>
+    <property name="value">
+     <number>50</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBars_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>390</y>
+      <width>409</width>
+      <height>102</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Sıralama Algoritmaları:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_Quick">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>470</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: rgb( 105, 200, 105);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb(105, 230, 105);
+}</string>
+    </property>
+    <property name="text">
+     <string>Başla (Quick Sort)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_Bubble">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>510</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: rgb( 105, 200, 105);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb(105, 230, 105);
+}</string>
+    </property>
+    <property name="text">
+     <string>Başla (Bubble Sort)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_Merge">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>510</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: rgb( 105, 200, 105);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb(105, 230, 105);
+}</string>
+    </property>
+    <property name="text">
+     <string>Başla (Merge Sort)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_Selection">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>470</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>8</pointsize>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: rgb( 105, 200, 105);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb(105, 230, 105);
+}</string>
+    </property>
+    <property name="text">
+     <string>Başla (Selection Sort)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_Insertion">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>470</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: rgb( 105, 200, 105);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb(105, 230, 105);
+}</string>
+    </property>
+    <property name="text">
+     <string>Başla (Insertion Sort)</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_degerekle">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>210</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_Manuel">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>590</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 20px;
+	background-color: rgb( 50, 150, 255);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb(85, 170, 255);
+}</string>
+    </property>
+    <property name="text">
+     <string>Oluştur</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_basla">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>590</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 20px;
+	background-color: rgb( 105, 200, 105);
+	color: rgb( 255, 255, 255);
+}
+
+QPushButton:hover {	
+	background-color: rgb(105, 230, 105);
+}</string>
+    </property>
+    <property name="text">
+     <string>Başla</string>
+    </property>
+   </widget>
+   <zorder>btn_Manuel</zorder>
+   <zorder>MplWidget</zorder>
+   <zorder>btn_Random</zorder>
+   <zorder>pushButton_dur</zorder>
+   <zorder>label_11</zorder>
+   <zorder>label_zamankar</zorder>
+   <zorder>label_10</zorder>
+   <zorder>label_karsilastirma</zorder>
+   <zorder>label_8</zorder>
+   <zorder>label_9</zorder>
+   <zorder>pushButton_sifirla</zorder>
+   <zorder>label_6</zorder>
+   <zorder>radioBtn_manuel</zorder>
+   <zorder>radioBtn_oto</zorder>
+   <zorder>comboBox_grafik</zorder>
+   <zorder>label_4</zorder>
+   <zorder>lblBars</zorder>
+   <zorder>spnBars</zorder>
+   <zorder>label_5</zorder>
+   <zorder>lblAnim</zorder>
+   <zorder>sldAnim_speed</zorder>
+   <zorder>lblBars_2</zorder>
+   <zorder>btn_Quick</zorder>
+   <zorder>btn_Bubble</zorder>
+   <zorder>btn_Merge</zorder>
+   <zorder>btn_Selection</zorder>
+   <zorder>btn_Insertion</zorder>
+   <zorder>textEdit_degerekle</zorder>
+   <zorder>pushButton_basla</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1646</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MplWidget</class>
+   <extends>QWidget</extends>
+   <header>mplwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

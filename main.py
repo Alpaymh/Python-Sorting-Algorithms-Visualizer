@@ -95,18 +95,19 @@ class MatplotlibWidget(QMainWindow):
         # Uygulamanın kullanıcı arayüzünün tepki vermesi sağlanıyor ve uygulamanın donmamasını veya yanıt vermemesini engelleniyor.
         QtCore.QCoreApplication.processEvents()
 
-        def ani_time(self):
+
+    def ani_time(self):
         # Çubuğun değerine göre bir değer alınır.
-            ani_speed = self.sldAnim_speed.value()
+        ani_speed = self.sldAnim_speed.value()
 
         # Hız süreye çevriliyor.
-            ani_interval = (-1/295)*ani_speed + 0.336
+        ani_interval = (-1/295)*ani_speed + 0.336
 
         # Hız süresi 'return' ifadesiyle geri döndürülür.
-            return(ani_interval)
+        return(ani_interval)
     
          #Sütunların Karıştırma Metodu
-        def scramble_bars(self):
+    def scramble_bars(self):
         # Matplotlib grafiği temizlenir.
         self.MplWidget.canvas.axes.clear()
 
@@ -119,7 +120,8 @@ class MatplotlibWidget(QMainWindow):
 
         # Sütunların sayısı alınıyor.
         bar_count = self.spnBars.value()
-    # scram_ys adlı liste, 1'den bar_count'a kadar olan sayıları içerir.
+        
+        # scram_ys adlı liste, 1'den bar_count'a kadar olan sayıları içerir.
         scram_ys = [i for i in range(1, bar_count +1)]
         xs = scram_ys.copy()
         #scram_ys listesindeki elemanların yerlerini rastgele değiştirilir. Bu, çubukların sıralamasını rastgele bir şekilde karıştırır.
@@ -134,8 +136,6 @@ class MatplotlibWidget(QMainWindow):
 
         # draw_graph adlı başka bir metodu çağırarak, yeni verilerin grafiğe çizilmesi sağlanır.
         self.draw_graph(xs,scram_ys,None)
-
-
 
     def manuel_bars(self):
         self.MplWidget.canvas.axes.clear()
@@ -178,7 +178,7 @@ class MatplotlibWidget(QMainWindow):
 
      
             
-             #Uygulama açıldığındaki ilk grafiğin metodu.
+    #Uygulama açıldığındaki ilk grafiğin metodu.
     def update_new_graph(self):
         # Matplotlib grafiği temizlenir.
         self.MplWidget.canvas.axes.clear()
@@ -201,6 +201,7 @@ class MatplotlibWidget(QMainWindow):
     def initial_graph(self):
         self.update_new_graph()
         return
+
 
     def draw_graph(self, xs, ys, bar_color):
         # Grafik Türleri Yazan Combobox'ta hangisi seçili ise ona göre grafik vermesi sağlanıyor.
@@ -250,7 +251,6 @@ class MatplotlibWidget(QMainWindow):
         self.basladur = basladur
         self.btn_Random.setEnabled(True)
         
-
         # Bubble (Kabarcık) Sıralamasının Kodu.
     def bubble_sort(self):
         yarray = self.ydata.copy()
@@ -289,7 +289,6 @@ class MatplotlibWidget(QMainWindow):
         self.karsilas(copy,yarray)
         
         self.btn_Random.setEnabled(True)
-
 
     # Insert (Eklemeli) Sıralamasının Kodu.
     def insert_sort(self):
@@ -526,7 +525,7 @@ class MatplotlibWidget(QMainWindow):
         arr[i + 1], arr[high] = arr[high], arr[i + 1]
         self.ydata = arr.copy()
         self.new_frame(high)
-                return+1
+        return+1
 
     def karsilas(self, copy, yarray):
         if copy == yarray:
