@@ -97,16 +97,16 @@ class MatplotlibWidget(QMainWindow):
 
         def ani_time(self):
         # Çubuğun değerine göre bir değer alınır.
-        ani_speed = self.sldAnim_speed.value()
+            ani_speed = self.sldAnim_speed.value()
 
         # Hız süreye çevriliyor.
-        ani_interval = (-1/295)*ani_speed + 0.336
+            ani_interval = (-1/295)*ani_speed + 0.336
 
         # Hız süresi 'return' ifadesiyle geri döndürülür.
-        return(ani_interval)
+            return(ani_interval)
     
          #Sütunların Karıştırma Metodu
-         def scramble_bars(self):
+        def scramble_bars(self):
         # Matplotlib grafiği temizlenir.
         self.MplWidget.canvas.axes.clear()
 
@@ -133,7 +133,7 @@ class MatplotlibWidget(QMainWindow):
         self.xdata = xs.copy()
 
         # draw_graph adlı başka bir metodu çağırarak, yeni verilerin grafiğe çizilmesi sağlanır.
-        self.draw_graph(xs, scram_ys, None)
+        self.draw_graph(xs,scram_ys,None)
 
 
 
@@ -200,7 +200,36 @@ class MatplotlibWidget(QMainWindow):
     #Uygulama başladığında ilk olarak çağrılan bir metoddur. Bu metot, boş bir grafik yerine sütunları olan bir grafikle başlamayı sağlar.
     def initial_graph(self):
         self.update_new_graph()
-        return   
+        return
+
+    def draw_graph(self, xs, ys, bar_color):
+        # Grafik Türleri Yazan Combobox'ta hangisi seçili ise ona göre grafik vermesi sağlanıyor.
+        selected_text = self.comboBox_grafik.currentText()
+        if selected_text == "Sütun (Bar) Grafiği":
+            # Grafiğin sürun renkleri ayarlanıyor.
+            if bar_color is None:
+                self.MplWidget.canvas.axes.bar(xs, ys, color="#ff0000")
+            else:
+                self.MplWidget.canvas.axes.bar(xs, ys, color='#ff0000')
+
+            self.MplWidget.canvas.draw()
+
+        elif selected_text == "Kök (Stem) Grafiği":
+            # Grafiğin sürun renkleri ayarlanıyor.
+            if bar_color is None:
+                self.MplWidget.canvas.axes.plot(xs, ys, color="#ff0000")
+            else:
+                self.MplWidget.canvas.axes.plot(xs, ys, color='#ff0000')
+
+            self.MplWidget.canvas.draw()
+
+        elif selected_text == "Dağılım (Scatter) Grafiği":
+            # Grafiğin sürun renkleri ayarlanıyor.
+            if bar_color is None:
+                self.MplWidget.canvas.axes.scatter(xs, ys, color="#ff0000")
+            else:
+                self.MplWidget.canvas.axes.scatter(xs, ys, color='#ff0000')
+            self.MplWidget.canvas.draw()
             
     # Grafik oluştuktan sonra butonların enable durumları ayarlanıyor.
     def buttons(self, tfstate):
@@ -497,10 +526,30 @@ class MatplotlibWidget(QMainWindow):
         arr[i + 1], arr[high] = arr[high], arr[i + 1]
         self.ydata = arr.copy()
         self.new_frame(high)
-        return i + 1
-   
+                return+1
 
-         
+    def karsilas(self, copy, yarray):
+        if copy == yarray:
+            self.karsilastirma = len(yarray) - 1
+            self.label_karsilastirma.setText(str(self.karsilastirma))
+        if self.karsilastirma == 1:
+            self.karsilastirma = len(yarray)
+            self.label_karsilastirma.setText(str(self.karsilastirma))
+        elif self.karsilastirma == 2:
+            self.karsilastirma = len(yarray) + 1
+            self.label_karsilastirma.setText(str(self.karsilastirma))
+        elif self.karsilastirma == 3:
+            self.karsilastirma = len(yarray) + 2
+            self.label_karsilastirma.setText(str(self.karsilastirma))
+
+    def start_delay(self):
+        delay_seconds = 10000
+        start_time = time.time()
+        while time.time() - start_time < delay_seconds:
+            QApplication.processEvents()
+            if self.basladur == 0:
+                break
+
     #Kullanıcı Liste Giriş Tercihini manuel yaptığımızda boyut girişini engellemek için enable özelliği 'False' yapıldı.
     #Listteye değer girişi için 'Listeye Ekle' butonu ve spinbox kullanımı 'True' yapıldı.
     def radio_manuel(self):
@@ -510,7 +559,7 @@ class MatplotlibWidget(QMainWindow):
         self.btn_Random.hide()
 
 
-    
+
     #Kullanıcı Liste Giriş Tercihini otomatik yaptığımızda Listteye değer girişini engellemek için 'Listeye Ekle' butonu ve spinbox'un enable özelliği 'False' yapıldı.
     #Listenin otomatik oluşmasında boyut girişi için enable özelliği 'True' yapıldı.
     def radio_oto(self):
