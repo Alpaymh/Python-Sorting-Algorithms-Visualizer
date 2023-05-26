@@ -14,7 +14,7 @@ Designer, PyQt5 tabanlı kullanıcı ara yüzlerinin görsel olarak tasarlanmas�
 2-Matplotlib ve PyQt5 Kütüphanelerini yükleyin. (Komut satırına "pip install matplotlib" ve "pip install PyQt5" yazınız.)<br>
 3-Uygulamayı çalıştırın.<br>
 <h4 align="left">⚙️ Çalışması</h4>
-![bubble-bar](https://github.com/Alpaymh/Python-Sorting-Algorithms-Visualizer/assets/97679528/852857ab-dd2c-40b2-a880-bf7a37a8cecc)<br>
+![bubble-bar](https://github.com/Alpaymh/Python-Sorting-Algorithms-Visualizer/assets/97679528/6b63d885-974f-4aff-930b-adebf4e0b34d)<br>
 <h4 align="center">Rasgele değerleri kabarcık sıralaması yapan sütun grafiği.</h4>
 
 
