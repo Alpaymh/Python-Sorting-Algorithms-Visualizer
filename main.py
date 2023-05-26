@@ -79,6 +79,63 @@ class MatplotlibWidget(QMainWindow):
 
 
 
+# Animasyon oluşturma metodu.
+    def new_frame(self, highlight_bar):
+         
+        # self.ani_time() değişkeninin değeri tarafından belirtilen bir süre boyunca duraklatır.
+        time.sleep(self.ani_time())
+        # self.MplWidget nesnesiyle ilişkili Matplotlib şeklinin eksenlerini temizler.
+        self.MplWidget.canvas.axes.clear()
+
+        # Sutünların renkleri belirtiliyor.
+        bar_color = ["#ff0000"] * (len(self.ydata)-1)
+        bar_color.insert(highlight_bar,"#ffa500")
+        self.draw_graph(self.xdata, self.ydata, bar_color)
+
+        # Uygulamanın kullanıcı arayüzünün tepki vermesi sağlanıyor ve uygulamanın donmamasını veya yanıt vermemesini engelleniyor.
+        QtCore.QCoreApplication.processEvents()
+
+        def ani_time(self):
+        # Çubuğun değerine göre bir değer alınır.
+        ani_speed = self.sldAnim_speed.value()
+
+        # Hız süreye çevriliyor.
+        ani_interval = (-1/295)*ani_speed + 0.336
+
+        # Hız süresi 'return' ifadesiyle geri döndürülür.
+        return(ani_interval)
+    
+         #Sütunların Karıştırma Metodu
+         def scramble_bars(self):
+        # Matplotlib grafiği temizlenir.
+        self.MplWidget.canvas.axes.clear()
+
+        # Liste değerlinin girişi yapıldığı için Sıralama Algoritmalarının Enable özelliği 'True' yapılıyor 
+        self.btn_Bubble.setEnabled(True)
+        self.btn_Quick.setEnabled(True)
+        self.btn_Insertion.setEnabled(True)
+        self.btn_Merge.setEnabled(True)
+        self.btn_Selection.setEnabled(True)
+
+        # Sütunların sayısı alınıyor.
+        bar_count = self.spnBars.value()
+    # scram_ys adlı liste, 1'den bar_count'a kadar olan sayıları içerir.
+        scram_ys = [i for i in range(1, bar_count +1)]
+        xs = scram_ys.copy()
+        #scram_ys listesindeki elemanların yerlerini rastgele değiştirilir. Bu, çubukların sıralamasını rastgele bir şekilde karıştırır.
+        for j in range(0, len(scram_ys)-1):
+            target = random.randint(j, len(scram_ys)-1)
+            scram_ys[j] , scram_ys[target] = scram_ys[target], scram_ys[j]
+        
+        
+        # Karıştırılmış çubukların yeri belirleniyor.
+        self.ydata = scram_ys.copy()
+        self.xdata = xs.copy()
+
+        # draw_graph adlı başka bir metodu çağırarak, yeni verilerin grafiğe çizilmesi sağlanır.
+        self.draw_graph(xs, scram_ys, None)
+
+
 
     def manuel_bars(self):
         self.MplWidget.canvas.axes.clear()
@@ -121,7 +178,29 @@ class MatplotlibWidget(QMainWindow):
 
      
             
-                
+             #Uygulama açıldığındaki ilk grafiğin metodu.
+    def update_new_graph(self):
+        # Matplotlib grafiği temizlenir.
+        self.MplWidget.canvas.axes.clear()
+
+        # Çubuk sayısı alınıyor.
+        bar_count = self.spnBars.value()
+
+        # ys adlı liste, 1'den bar_count'a kadar olan sayıları içerir. 
+        ys = [i for i in range(1, bar_count +1)]
+        xs = ys
+
+        # Yeni veriler, sınıf değişkenlerine (self.ydata ve self.xdata) kopyalanır. Bu veriler, çubuk grafiğinin çiziminde kullanılacak.
+        self.ydata = ys.copy()
+        self.xdata = xs.copy()
+
+        # draw_graph adlı başka bir metodu çağırarak, yeni verilerin grafiğe çizilmesi sağlanır.
+        self.draw_graph(xs, ys, None)
+        
+    #Uygulama başladığında ilk olarak çağrılan bir metoddur. Bu metot, boş bir grafik yerine sütunları olan bir grafikle başlamayı sağlar.
+    def initial_graph(self):
+        self.update_new_graph()
+        return   
             
     # Grafik oluştuktan sonra butonların enable durumları ayarlanıyor.
     def buttons(self, tfstate):
@@ -142,6 +221,283 @@ class MatplotlibWidget(QMainWindow):
         self.basladur = basladur
         self.btn_Random.setEnabled(True)
         
+
+        # Bubble (Kabarcık) Sıralamasının Kodu.
+    def bubble_sort(self):
+        yarray = self.ydata.copy()
+        copy = yarray.copy()
+
+        # Butonların kullanımı kısıtlanıyor.
+        self.buttons(False)
+        self.btn_Random.setEnabled(False)
+        
+        # Zaman karmasikligi için bilgiler giriliyor.
+        zdeg = (len(yarray))*(len(yarray))
+        self.label_zamankar.setText("O(" + str(zdeg) + ")"+" - O(n2)")
+        self.basladur = 0
+        for i in range(len(yarray)):
+
+            endp = len(yarray) - i
+            
+            for j in range(0 , endp):
+                if self.basladur == 1:
+                    self.start_delay()
+                if j+1 == len(yarray):
+                    pass    
+                else:
+                    if yarray[j] > yarray[j+1]:
+                        # Swap işlemi gerçekleştiriliyor
+                        yarray[j], yarray[j+1] = yarray[j+1], yarray[j]
+
+                        # Veri güncelleniyor
+                        self.ydata = yarray
+                        
+                        # Yeni frame oluşturuluyor
+                        self.new_frame(j+1)
+                        # Karşılaştırma sayısı artırılıyor ve ekrana yazdırlıyor.
+                        self.karsilastirma += 1 
+                        self.label_karsilastirma.setText(str(self.karsilastirma))
+        self.karsilas(copy,yarray)
+        
+        self.btn_Random.setEnabled(True)
+
+
+    # Insert (Eklemeli) Sıralamasının Kodu.
+    def insert_sort(self):
+        yarray = self.ydata.copy()
+        copy = yarray.copy()
+        # Butonların kullanımı kısıtlanıyor.
+        self.buttons(False)
+        self.btn_Random.setEnabled(False)
+        # Zaman karmasikligi için bilgiler giriliyor.
+        zdeg = (len(yarray))*(len(yarray))
+        self.label_zamankar.setText("O(" + str(zdeg) + ")"+" - O(n2)")
+        self.basladur = 0
+        for i in range(len(yarray)):
+            if self.basladur == 1:
+                    self.start_delay()
+            if (i+1) == len(yarray):
+                break 
+            else:
+                if yarray[i] > yarray[i+1]:
+                    # Elemanlar karşılaştırılıyor ve gerektiğinde yer değiştiriliyor
+                    for k in reversed(range(i+1)):
+                        self.karsilastirma += 1 
+                        self.label_karsilastirma.setText(str(self.karsilastirma))
+                        if yarray[k+1] < yarray[k]:
+                            yarray[k], yarray[k+1] = yarray[k+1] , yarray[k]
+                            
+                            # Veri güncelleniyor
+                            self.ydata = yarray
+
+                            # Yeni frame oluşturuluyor
+                            self.new_frame(k)
+                        else:
+                            break
+        self.karsilas(copy,yarray)
+        # Oluşturma butonu enable özelliği aktif ediliyor.
+        self.btn_Random.setEnabled(True)
+
+    mergcopy = ""
+    #  Bu metot, merge sort algoritmasının başlatılmasını sağlar. İşlemler sırasında kullanılan ara metotları 
+    #  çağırır ve sonuçları geri döndürür.
+    def merge_sort(self):
+        yarray = self.ydata.copy()
+        self.mergcopy = yarray.copy()
+        # Butonların kullanımı kısıtlanıyor.
+        self.buttons(False)
+        self.btn_Random.setEnabled(False)
+
+        yarray = self.merge_split(yarray)
+
+        # Zaman karmasikligi için bilgiler giriliyor.
+        zdeg = (len(yarray))*math.log((len(yarray)))
+        self.label_zamankar.setText("O(" + str(zdeg) + ")"+" - O(n log (n) )")
+
+        # Veri güncelleniyor
+        self.ydata = yarray
+        # Yeni frame oluşturuluyor.
+        self.new_frame(0)
+        # Oluşturma butonu enable özelliği aktif ediliyor.
+        self.btn_Random.setEnabled(True)
+
+    # Bu metot, verilen diziyi ikiye bölen ve bölünmüş dizileri sıralamak için merge metoduyla birleştiren rekürsif bir işlemdir.
+    # Her bir bölünmüş dizi için merge_update metodu çağırılır ve ardından sıralanmış diziler merge metodu kullanılarak birleştirilir.
+    def merge_split(self, arr):
+        
+        length = len(arr)
+
+        # Eğer listenin uzunluğu 1 ise, listenin kendisini döndür.
+        # Bu durumda, listenin parçalanması sonlanır ve sıralama işlemi başlar.
+        if length == 1:
+            return(arr)
+        
+        # Listenin orta noktası hesaplanır.
+        midp = length//2
+
+        # Sol yarıdaki elemanlar için merge_split metodu tekrar çağrılır.
+        # Bu işlem, listenin sol yarısını parçalara ayırır ve sıralamayı gerçekleştirir.
+        arr_1 = self.merge_split(arr[:midp])
+        self.merge_update(arr_1, self.ydata)
+
+        # Sağ yarıdaki elemanlar için merge_split metodu tekrar çağrılır.
+        # Bu işlem, listenin sağ yarısını parçalara ayırır ve sıralamayı gerçekleştirir.
+        arr_2 = self.merge_split(arr[midp:])
+        self.merge_update(arr_2, self.ydata)
+
+        # Yeni frame oluşturulur
+        self.new_frame(0)
+
+        # Sıralanmış sol ve sağ yarıları birleştirmek için merge metodu çağrılır.
+        # Bu işlem, merge sort'un birleştirme (merge) adımını gerçekleştirir.
+        return(self.merge(arr_1, arr_2))
+
+    # Bu metot, bir alt listedeki elemanların ana listedeki sıralı konumunu bulur ve ana listeden bu elemanları kaldırır.
+    # Ardından, alt listedeki elemanları sırasıyla ana liste içerisine yerleştirir.
+    def merge_update(self, sub_list, main_list):
+        # Alt listenin elemanlarının ana listedeki konumlarını belirlemek için bir 'pos' listesi oluşturuluyor.
+        pos = []
+        for value in sub_list:
+            pos.append(main_list.index(value))
+
+        # Alt listenin elemanları ana listeden çıkarılır.
+        for v in sub_list:
+            main_list.remove(v)
+
+        # 'pos' listesindeki en büyük ve en küçük değerler 'high' ve 'low' değişkenlerine atanır.
+        high = max(pos)
+        low = min(pos)
+
+        # 'low' ve 'high' aralığındaki indekslere döngü ile gidilir ve alt liste ana liste içerisine yerleştirilir.
+        for i in range(low, high+1):
+            main_list.insert(i, sub_list[i-low])
+
+    # Bu metot, iki sıralı listeyi birleştirerek tek bir sıralı liste oluşturur. 
+    # İki liste üzerinde sıralı olarak gezinir ve elemanları karşılaştırarak küçük olanı sonuç listesine ekler. 
+    def merge(self, arr_1, arr_2):
+        sorted_arr = []
+        copy = self.mergcopy.copy()
+        # Her iki alt liste de boş olmadığı sürece döngü devam eder.
+        while arr_1 and arr_2:
+            # İki alt listenin ilk elemanlarının karşılaştırması yapılır.
+            # Daha küçük olan eleman sıralanmış liste sonuna eklenir ve o alt listeden çıkarılır.
+            if arr_1[0] < arr_2[0]:
+                sorted_arr.append(arr_1.pop(0))
+                
+            else:
+                sorted_arr.append(arr_2.pop(0))
+        self.karsilastirma += 1 
+        self.label_karsilastirma.setText(str(self.karsilastirma)) 
+        # Bir alt liste hala eleman içeriyorsa, kalan elemanlar sıralanmış liste sonuna eklenir.
+        while arr_1:
+            sorted_arr.append(arr_1.pop(0))
+            self.karsilastirma += 1 
+            self.label_karsilastirma.setText(str(self.karsilastirma)) 
+
+        while arr_2:
+            sorted_arr.append(arr_2.pop(0))
+            self.karsilastirma += 1 
+            self.label_karsilastirma.setText(str(self.karsilastirma)) 
+            self.karsilas(copy,sorted_arr)
+        return(sorted_arr)
+
+        
+    # Selection (Seçmeli) Sıralamasının Kodu.
+    def select_sort(self):
+        yarray = self.ydata.copy()
+        copy = yarray.copy()
+        # Butonların kullanımı kısıtlanıyor.
+        self.buttons(False)
+        self.btn_Random.setEnabled(False)
+
+        # Zaman karmasikligi için bilgiler giriliyor.
+        zdeg = (len(yarray))*(len(yarray))
+        self.label_zamankar.setText("O(" + str(zdeg) + ")"+" - O(n2)")
+
+        
+        for i in range(len(yarray)):
+
+            holder = None
+
+            # Minimum elemanı bulmak için iç içe geçmiş bir döngü kullanılıyor.
+            # İç döngü, i'den başlayarak dizinin sonuna kadar ilerliyor.
+            for j in range(i,len(yarray)):
+                
+                if (not holder):
+                    holder = yarray[j]
+                    self.karsilastirma -= 1 
+                    self.label_karsilastirma.setText(str(self.karsilastirma))   
+                elif yarray[j] < holder:
+                    holder = yarray[j]
+                    
+                # Karşılaştırma sayısı güncelleniyor ve ekranda gösteriliyor.
+                self.karsilastirma += 1 
+                self.label_karsilastirma.setText(str(self.karsilastirma))   
+                self.new_frame(j)
+            
+            # Minimum elemanın indeksi bulunuyor.
+            shifter_index = yarray.index(holder)
+
+            # Minimum elemanı listeden çıkarıp, doğru konuma yerleştiriliyor.
+            yarray.pop(shifter_index)
+            yarray.insert(i, holder)
+            
+            self.ydata = yarray
+            
+            # Grafiği güncelle.
+            self.new_frame(shifter_index)
+        self.karsilas(copy,yarray)
+        self.btn_Random.setEnabled(True)
+
+    # Quick (Hızlı) Sıralamasının Kodu.
+    def quick_sort(self):
+        yarray = self.ydata.copy()
+        copy = yarray.copy()
+        # Butonların kullanımı kısıtlanıyor.
+        self.buttons(False)
+        self.btn_Random.setEnabled(False)
+
+        # Zaman karmasikligi için bilgiler giriliyor.
+        zdeg = (len(yarray))*math.log((len(yarray)))
+        self.label_zamankar.setText("O(" + str(zdeg) + ")"+" - O(n log (n) )")
+
+        # Quick Sort'u çağır
+        self.quick_sort_recursive(yarray, 0, len(yarray) - 1)
+        self.karsilas(copy,yarray)
+        self.btn_Random.setEnabled(True)
+
+
+    def quick_sort_recursive(self, arr, low, high):
+        if low < high:
+            # Partition işlemi
+            pivot_index = self.partition(arr, low, high)
+
+            # Sol ve sağ tarafı ayrı ayrı sırala
+            self.quick_sort_recursive(arr, low, pivot_index - 1)
+            self.quick_sort_recursive(arr, pivot_index + 1, high)
+        self.btn_Random.setEnabled(True)
+
+
+    def partition(self, arr, low, high):
+        # Pivot olarak son elemanı seç
+        pivot = arr[high]
+        i = low - 1
+
+        for j in range(low, high):
+            if arr[j] < pivot:
+                i += 1
+                # Swap işlemi
+                arr[i], arr[j] = arr[j], arr[i]
+                self.ydata = arr.copy() 
+                self.new_frame(j)
+            self.karsilastirma += 1 
+            self.label_karsilastirma.setText(str(self.karsilastirma))  
+
+        # Pivot'un doğru konuma getirilmesi için swap işlemi
+        arr[i + 1], arr[high] = arr[high], arr[i + 1]
+        self.ydata = arr.copy()
+        self.new_frame(high)
+        return i + 1
    
 
          
